@@ -1,30 +1,30 @@
-/* line 20, ../sass/sudoku.scss */
+/* line 27, ../sass/sudoku.scss */
 body {
   background-color: #111111;
   text-align: center;
 }
 
-/* line 24, ../sass/sudoku.scss */
+/* line 31, ../sass/sudoku.scss */
 #page-title {
   margin: 30px auto;
   font-size: 50px;
   color: #0fb4eb;
 }
 
-/* line 29, ../sass/sudoku.scss */
+/* line 36, ../sass/sudoku.scss */
 #game {
   width: 374px;
   margin: auto;
 }
-/* line 32, ../sass/sudoku.scss */
+/* line 39, ../sass/sudoku.scss */
 #game table {
   border-collapse: collapse;
 }
-/* line 34, ../sass/sudoku.scss */
+/* line 41, ../sass/sudoku.scss */
 #game table colgroup, #game table tbody {
   border: 2px solid #f1f1f1;
 }
-/* line 37, ../sass/sudoku.scss */
+/* line 44, ../sass/sudoku.scss */
 #game table td {
   border: 1px solid #444444;
   height: 40px;
@@ -34,7 +34,25 @@ body {
   padding: 0;
   color: #f1f1f1;
 }
-/* line 46, ../sass/sudoku.scss */
+/* line 53, ../sass/sudoku.scss */
 #game table .stuck {
   color: #ff8f32;
+}
+
+@media screen and (max-width: 400px) {
+  /* line 60, ../sass/sudoku.scss */
+  #page-title {
+    font-size: 40px;
+  }
+
+  /* line 63, ../sass/sudoku.scss */
+  #game {
+    width: 284px;
+  }
+  /* line 66, ../sass/sudoku.scss */
+  #game table td {
+    height: 30px;
+    width: 30px;
+    font-size: 25px;
+  }
 }
