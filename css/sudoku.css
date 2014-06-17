@@ -1,0 +1,40 @@
+/* line 20, ../sass/sudoku.scss */
+body {
+  background-color: #111111;
+  text-align: center;
+}
+
+/* line 24, ../sass/sudoku.scss */
+#page-title {
+  margin: 30px auto;
+  font-size: 50px;
+  color: #0fb4eb;
+}
+
+/* line 29, ../sass/sudoku.scss */
+#game {
+  width: 374px;
+  margin: auto;
+}
+/* line 32, ../sass/sudoku.scss */
+#game table {
+  border-collapse: collapse;
+}
+/* line 34, ../sass/sudoku.scss */
+#game table colgroup, #game table tbody {
+  border: 2px solid #f1f1f1;
+}
+/* line 37, ../sass/sudoku.scss */
+#game table td {
+  border: 1px solid #444444;
+  height: 40px;
+  width: 40px;
+  font-size: 32px;
+  text-align: center;
+  padding: 0;
+  color: #f1f1f1;
+}
+/* line 46, ../sass/sudoku.scss */
+#game table .stuck {
+  color: #ff8f32;
+}

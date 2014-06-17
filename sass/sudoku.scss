@@ -1,0 +1,50 @@
+///*******************///
+///     Variables     ///
+/// ******************///
+$background-color: #111;
+$title-color: #0FB4EB;
+$preset-num-color: #FF8F32;
+$thin-width: 1;
+$thick-width: 2;
+$thin-border: #{$thin-width}px solid #444;
+$thick-border: #{$thick-width}px solid #f1f1f1;
+
+$title-font-size: 50px;
+$cell-size: 40px;
+$cell-font-size: 32px;
+$content-width: #{($cell-size * 9) + ($thick-width * 4) + ($thin-width * 6)};
+
+///****************///
+///     Styles     ///
+///****************///
+body {
+	background-color: $background-color;
+	text-align: center;
+}
+#page-title {
+	margin: 30px auto;
+	font-size: $title-font-size;
+	color: $title-color;
+}
+#game {
+	width: $content-width;
+	margin: auto;
+	table {
+		border-collapse: collapse;
+		colgroup, tbody {
+			border: $thick-border;
+		}
+		td {
+			border: $thin-border;
+			height: $cell-size;
+			width: $cell-size;
+			font-size: $cell-font-size;
+			text-align: center;
+			padding: 0;
+			color: #f1f1f1;
+		}
+		.stuck {
+			color: $preset-num-color;
+		}
+	}
+}
