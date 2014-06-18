@@ -39,8 +39,15 @@ function Board(presetCellInfo, size) {
 
 	this.MarkCell = function(row, col, val) {
 		var curCell = this.board[row][col];
-		curCell.SetVal(val);
-		// TODO: check if error was created here
+		if (!curCell.WasPreset()) {
+			curCell.SetVal(val);
+			this.numFilled++;
+			if (this.hasError) {
+				this.hasError = this.CheckForErrors();
+			} else {
+				this.CausedError(row, col);
+			}
+		}
 	};
 
 	this.ClearCell = function(row, col) {
@@ -48,9 +55,7 @@ function Board(presetCellInfo, size) {
 		if (curCell.GetVal() && !curCell.WasPreset()) {
 			curCell.SetVal("");
 			this.numFilled--;
-			if (this.isError) {
-				// TODO: need to check if error was corrected
-			}
+			this.hasError = this.CheckForErrors();
 		}
 	};
 
@@ -64,6 +69,50 @@ function Board(presetCellInfo, size) {
 				}
 			}
 		}
+	};
+
+	this.CausedError = function(row, col) {
+		for (var i in row) {
+			if (i !== row && this.board[i][col] === this.board[row][col]) {
+				return true;
+			}
+		}
+		for (var i in col) {
+			if (i !== col && this.board[row][i] === this.board[row][col]) {
+				return true;
+			}
+		}
+		var rowStart = 3 * Math.floor(row / 3);
+		var colStart = 3 * Math.floor(col / 3);
+		var sectionSize = Math.sqrt(this.boardSize);
+		for (var i = rowStart; i < rowStart + sectionSize; i++) {
+			for (var j = colStart; j < colStart + sectionSize; j++) {
+				if ((row !== i || col !== j) && this.board[i][j] === this.board[row][col]) {
+					return true;
+				}
+			}
+		}
+		return false;
+	};
+
+	this.CheckForErrors = function() {
+		/* Note that this is not the most efficient way to do this. Instead
+		 * of checking once per cell, we could instead check once per row,
+		 * col, and section. Doing that would be three times faster. However
+		 * because this action is done after updating the UI, because it is
+		 * uncommon that someone will quickly interact with the board after
+		 * placing a number, and because on a 9x9 board this algorithm will
+		 * not be noticably slower, I have decided to go the ease of coding
+		 * route.
+		 */
+		for (var i = 0; i < this.boardSize; i++) {
+			for (var j = 0; j < this.boardSize; j++) {
+				if (this.CausedError(i, j)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	};
 
 	this.IsSolved = function() {
