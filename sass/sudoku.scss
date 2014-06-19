@@ -115,6 +115,7 @@ body {
 
 @media screen and (max-width: $small-screen) {
 	#page-title {
+		margin: 10px auto;
 		font-size: $small-title-font-size;
 	}
 	#game {

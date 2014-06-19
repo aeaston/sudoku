@@ -109,14 +109,15 @@ body {
 @media screen and (max-width: 400px) {
   /* line 117, ../sass/sudoku.scss */
   #page-title {
+    margin: 10px auto;
     font-size: 40px;
   }
 
-  /* line 120, ../sass/sudoku.scss */
+  /* line 121, ../sass/sudoku.scss */
   #game {
     width: 290px;
   }
-  /* line 123, ../sass/sudoku.scss */
+  /* line 124, ../sass/sudoku.scss */
   #game table td {
     height: 30px;
     width: 30px;
