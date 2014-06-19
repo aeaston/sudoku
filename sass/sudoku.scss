@@ -8,16 +8,18 @@ $thin-width: 1;
 $thick-width: 2;
 $thin-border: #{$thin-width}px solid #444;
 $thick-border: #{$thick-width}px solid #f1f1f1;
+$thick-highlighted-border: #{$thick-width}px solid $title-color;
+$button-background: #bbb;
 
 $title-font-size: 50px;
 $cell-size: 40px;
 $cell-font-size: 32px;
-$content-width: #{($cell-size * 9) + ($thick-width * 4) + ($thin-width * 6)};
+$content-width: #{($cell-size * 9) + ($thick-width * 4) + (($thin-width + 1) * 6)};
 
 $small-title-font-size: 40px;
 $small-cell-size: 30px;
 $small-cell-font-size: 25px;
-$small-content-width: #{($small-cell-size * 9) + ($thick-width * 4) + ($thin-width * 6)};
+$small-content-width: #{($small-cell-size * 9) + ($thick-width * 4) + (($thin-width + 1) * 6)};
 
 $small-screen: 400px;
 
@@ -36,6 +38,9 @@ body {
 #game {
 	width: $content-width;
 	margin: auto;
+	#board {
+		margin-bottom: 20px;
+	}
 	table {
 		border-collapse: collapse;
 		colgroup, tbody {
@@ -49,11 +54,51 @@ body {
 			text-align: center;
 			padding: 0;
 			color: #f1f1f1;
+			cursor: pointer;
+		}
+		.selected {
+			border: $thick-highlighted-border;
 		}
 		.stuck {
 			color: $preset-num-color;
 		}
 	}
+}
+#cell-options-container {
+	display: inline-block;
+	vertical-align: middle;
+	width: 34%;
+	#cell-options {
+		display: none;
+	}
+	#number-options {
+		margin-bottom: 5px;
+	}
+	table {
+		tbody {
+			border: $thick-highlighted-border;
+		}
+	}
+}
+#reset-button-container {
+	display: inline-block;
+	vertical-align: middle;
+	width: 66%;
+	#reset-button {
+		width: 90%;
+		height: 50px;
+		line-height: 50px;
+		margin-left: 10%;
+	}
+}
+.button {
+	height: 30px;
+	line-height: 30px;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 20px;
+	background-color: $button-background;
+	cursor: pointer;
 }
 
 @media screen and (max-width: $small-screen) {

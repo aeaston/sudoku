@@ -11,23 +11,40 @@
 	<body>
 		<div id="page-title">Andrew's Sudoku</div>
 		<div id="game">
-			<table>
-				<colgroup><col><col><col>
-				<colgroup><col><col><col>
-				<colgroup><col><col><col>
-				<tbody>
-					<tr> <td class="stuck">5 <td class="stuck">3 <td>  <td>  <td class="stuck">7 <td>  <td>  <td>  <td>
-					<tr> <td>  <td>  <td>  <td class="stuck">1 <td class="stuck">9 <td class="stuck">5 <td>  <td>  <td>
-					<tr> <td>  <td class="stuck">9 <td class="stuck">8 <td>  <td>  <td>  <td>  <td class="stuck">6 <td>
-				<tbody>
-					<tr> <td class="stuck">8 <td>  <td>  <td>  <td class="stuck">6 <td>  <td>  <td>  <td class="stuck">3
-					<tr> <td class="stuck">4 <td>  <td>  <td class="stuck">8 <td>  <td class="stuck">3 <td>  <td>  <td class="stuck">1
-					<tr> <td class="stuck">7 <td>  <td>  <td>  <td class="stuck">2 <td>  <td>  <td>  <td class="stuck">6
-				<tbody>
-					<tr> <td>  <td class="stuck">6 <td>  <td>  <td>  <td>  <td class="stuck">2 <td class="stuck">8 <td>
-					<tr> <td>  <td>  <td>  <td class="stuck">4 <td class="stuck">1 <td class="stuck">9 <td>  <td>  <td class="stuck">5
-					<tr> <td>  <td>  <td>  <td>  <td class="stuck">8 <td>  <td>  <td class="stuck">7 <td class="stuck">9
-			</table>
+			<div id="board">
+				<table>
+					<colgroup><col><col><col>
+					<colgroup><col><col><col>
+					<colgroup><col><col><col>
+					<tbody>
+						<tr> <td class="stuck">5 <td class="stuck">3 <td>  <td>  <td class="stuck">7 <td>  <td>  <td>  <td>
+						<tr> <td>  <td>  <td>  <td class="stuck">1 <td class="stuck">9 <td class="stuck">5 <td>  <td>  <td>
+						<tr> <td>  <td class="stuck">9 <td class="stuck">8 <td>  <td>  <td>  <td>  <td class="stuck">6 <td>
+					<tbody>
+						<tr> <td class="stuck">8 <td>  <td>  <td>  <td class="stuck">6 <td>  <td>  <td>  <td class="stuck">3
+						<tr> <td class="stuck">4 <td>  <td>  <td class="stuck">8 <td>  <td class="stuck">3 <td>  <td>  <td class="stuck">1
+						<tr> <td class="stuck">7 <td>  <td>  <td>  <td class="stuck">2 <td>  <td>  <td>  <td class="stuck">6
+					<tbody>
+						<tr> <td>  <td class="stuck">6 <td>  <td>  <td>  <td>  <td class="stuck">2 <td class="stuck">8 <td>
+						<tr> <td>  <td>  <td>  <td class="stuck">4 <td class="stuck">1 <td class="stuck">9 <td>  <td>  <td class="stuck">5
+						<tr> <td>  <td>  <td>  <td>  <td class="stuck">8 <td>  <td>  <td class="stuck">7 <td class="stuck">9
+				</table>
+			</div>
+			<div id="cell-options-container">
+				<div id="cell-options">
+					<div id="number-options">
+						<table>
+							<tbody>
+								<tr> <td>1 <td>2 <td>3
+								<tr> <td>4 <td>5 <td>6
+								<tr> <td>7 <td>8 <td>9
+						</table>
+					</div>
+					<div class="button" id="clear-cell-button">Clear</div>
+				</div>
+			</div><div id="reset-button-container">
+				<div class="button" id="reset-button">Reset</div>
+			</div>
 		</game>
 	</body>
 	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>

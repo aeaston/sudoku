@@ -1,11 +1,14 @@
 function Sudoku() {
 	var boardGenerator = new BoardGenerator();
 	var presetCells = boardGenerator.Generate();
-	this.board = new Board(presetCells);
+	var board = new Board();
+	board.SetUp(presetCells);
+
+	var cellSelected = false;
 
 	// TODO need to add additional click handlers for updating cells
 	this.ClearAll = function() {
-		this.board.Reset();
+		board.Reset();
 		this.UpdateUI();
 	};
 
@@ -17,10 +20,24 @@ function Sudoku() {
 		// TODO impliment this
 	};
 
+	this.HookUpUI = function() {
+		$('#board td').click(function(event) {
+			if (cellSelected && !$(this).hasClass("selected")) {
+				$('#board .selected').removeClass("selected");
+				cellSelected = false;
+				$('#cell-options').hide();
+			}
+			cellSelected = !cellSelected;
+			$(this).toggleClass("selected");
+			$('#cell-options').toggle();
+		});
+	};
+
+	this.HookUpUI();
 	this.UpdateUI();
 }
 
-function Board(presetCellInfo, size) {
+function Board(size) {
 	this.boardSize = size || 9;
 	this.numFilled = 0;
 	this.hasError = false;
@@ -32,10 +49,12 @@ function Board(presetCellInfo, size) {
 		}
 	}
 
-	for (var i in presetCellInfo) {
-		this.board[presetCellInfo[i].GetRow() - 1][presetCellInfo[i].GetCol() - 1] = new Cell(presetCellInfo[i].GetVal(), true);
-		this.numFilled++;
-	}
+	this.SetUp = function(presetCellInfo) {
+		for (var i in presetCellInfo) {
+			this.board[presetCellInfo[i].GetRow() - 1][presetCellInfo[i].GetCol() - 1] = new Cell(presetCellInfo[i].GetVal(), true);
+			this.numFilled++;
+		}
+	};
 
 	this.MarkCell = function(row, col, val) {
 		var curCell = this.board[row][col];
@@ -195,3 +214,5 @@ function BoardGenerator() {
 		return presets;
 	};
 }
+
+var game = new Sudoku();
