@@ -17,4 +17,6 @@ In terms of technologies, the only two I really used beyond standard html, css, 
 
 Had I had more time I would have loved to have done a bit more work on the UI. Once I click on a box, it would be nice to be able to enter my input on the keyboard for example. I'm pretty happy with the look and feel of the app but I do feel there is (almost always) room for improvement there. At some point though the returns outweigh the costs and that's when it's time to ship.
 
+Please also note that this is optimized for the latest browsers and phones. This game is not intended for use on the iPhone 4. While it is perfectly functional, some UI tweaks would be needed to make it a more pleasant experience (read: so it doesn't go off the bottom of the screen).
+
 For any questions or comments, I can be reached at aeaston@cs.stanford.edu
