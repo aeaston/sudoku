@@ -5,8 +5,7 @@
 		<meta name="apple-touch-fullscreen" content="yes"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<title>Andrew's Sudoku</title>
-		<!-- <link href="/css/sudoku.css" rel="stylesheet" type="text/css" /> -->
-		<link href="file:///Users/Andrew/projects/sudoku/css/sudoku.css" rel="stylesheet" type="text/css" />
+		<link href="/css/sudoku.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<div id="page-title">Andrew's Sudoku</div>
@@ -30,6 +29,7 @@
 						<tr row="8"> <td><td><td><td><td><td><td><td><td>
 				</table>
 			</div>
+			<div id="victory-message">Congrats, you win!</div>
 			<div id="cell-options-container">
 				<div id="cell-options-overlay"></div>
 				<div id="cell-options">
@@ -46,9 +46,8 @@
 			</div><div id="reset-button-container">
 				<div class="button" id="reset-button" onclick="game.ClearAll()">Reset</div>
 			</div>
-		</game>
+		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- <script src="/js/sudoku.js"></script> -->
-	<script src="file:///Users/Andrew/projects/sudoku/js/sudoku.js"></script>
+	<script src="/js/sudoku.js"></script>
 </html>

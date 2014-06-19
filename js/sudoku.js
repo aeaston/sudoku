@@ -31,7 +31,7 @@ function Sudoku() {
 	};
 
 	this.DisplayVictory = function() {
-		// TODO impliment this
+		$('#victory-message').show();
 	};
 
 	this.HookUpUI = function() {
@@ -122,9 +122,11 @@ function Board(size) {
 		for (var row = 0; row < this.boardSize; row++) {
 			for (var col = 0; col < this.boardSize; col++) {
 				var curCell = this.board[row][col];
-				if (!curCell.WasPreset) {
+				if (!curCell.WasPreset()) {
+					if (curCell.GetVal()) {
+						this.numFilled--;
+					}
 					curCell.ClearVal();
-					this.numFilled--;
 				}
 			}
 		}

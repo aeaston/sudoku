@@ -58,27 +58,28 @@ body {
 /* line 72, ../sass/sudoku.scss */
 #cell-options-container #cell-options-overlay {
   height: 100%;
-  width: 100%;
+  width: 105%;
   position: absolute;
+  left: -2px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.7);
 }
-/* line 79, ../sass/sudoku.scss */
+/* line 80, ../sass/sudoku.scss */
 #cell-options-container #number-options {
   margin-bottom: 5px;
 }
-/* line 83, ../sass/sudoku.scss */
+/* line 84, ../sass/sudoku.scss */
 #cell-options-container table tbody {
   border: 2px solid #0fb4eb;
 }
 
-/* line 88, ../sass/sudoku.scss */
+/* line 89, ../sass/sudoku.scss */
 #reset-button-container {
   display: inline-block;
   vertical-align: middle;
   width: 66%;
 }
-/* line 92, ../sass/sudoku.scss */
+/* line 93, ../sass/sudoku.scss */
 #reset-button-container #reset-button {
   width: 90%;
   height: 50px;
@@ -86,7 +87,7 @@ body {
   margin-left: 10%;
 }
 
-/* line 99, ../sass/sudoku.scss */
+/* line 100, ../sass/sudoku.scss */
 .button {
   height: 30px;
   line-height: 30px;
@@ -97,17 +98,25 @@ body {
   cursor: pointer;
 }
 
+/* line 109, ../sass/sudoku.scss */
+#victory-message {
+  color: #0fb4eb;
+  font-size: 30px;
+  margin-bottom: 20px;
+  display: none;
+}
+
 @media screen and (max-width: 400px) {
-  /* line 110, ../sass/sudoku.scss */
+  /* line 117, ../sass/sudoku.scss */
   #page-title {
     font-size: 40px;
   }
 
-  /* line 113, ../sass/sudoku.scss */
+  /* line 120, ../sass/sudoku.scss */
   #game {
     width: 290px;
   }
-  /* line 116, ../sass/sudoku.scss */
+  /* line 123, ../sass/sudoku.scss */
   #game table td {
     height: 30px;
     width: 30px;
