@@ -109,7 +109,7 @@ body {
 @media screen and (max-width: 400px) {
   /* line 117, ../sass/sudoku.scss */
   #page-title {
-    margin: 10px auto;
+    margin: 5px auto;
     font-size: 40px;
   }
 
@@ -117,10 +117,19 @@ body {
   #game {
     width: 290px;
   }
-  /* line 124, ../sass/sudoku.scss */
+  /* line 123, ../sass/sudoku.scss */
+  #game #board {
+    margin-bottom: 5px;
+  }
+  /* line 127, ../sass/sudoku.scss */
   #game table td {
     height: 30px;
     width: 30px;
     font-size: 25px;
+  }
+
+  /* line 134, ../sass/sudoku.scss */
+  #victory-message {
+    margin-bottom: 5px;
   }
 }

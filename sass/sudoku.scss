@@ -115,11 +115,14 @@ body {
 
 @media screen and (max-width: $small-screen) {
 	#page-title {
-		margin: 10px auto;
+		margin: 5px auto;
 		font-size: $small-title-font-size;
 	}
 	#game {
 		width:	$small-content-width; 
+		#board {
+			margin-bottom: 5px;
+		}
 		table {
 			td {
 				height: $small-cell-size; 
@@ -127,5 +130,8 @@ body {
 				font-size: $small-cell-font-size;
 			}
 		}
+	}
+	#victory-message {
+		margin-bottom: 5px;
 	}
 }
