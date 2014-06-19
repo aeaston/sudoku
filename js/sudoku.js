@@ -6,14 +6,28 @@ function Sudoku() {
 
 	var cellSelected = false;
 
-	// TODO need to add additional click handlers for updating cells
+	this.GetBoard = function() {
+		return board;
+	};
+
 	this.ClearAll = function() {
 		board.Reset();
 		this.UpdateUI();
 	};
 
 	this.UpdateUI = function() {
-		// TODO impliment this
+		var uiTrs = $('#board tr');
+		for (var row = 0; row < board.boardSize; row++) {
+			var children = $(uiTrs[row]).children();
+			for (var col = 0; col < board.boardSize; col++) {
+				var cell = board.GetCell(row, col);
+				if (cell.WasPreset()) {
+					$(($(uiTrs[row]).children())[col]).addClass("stuck");
+				}
+				$(($(uiTrs[row]).children())[col]).html(cell.GetVal());
+			}
+		}
+		$('#board .selected').click();
 	};
 
 	this.DisplayVictory = function() {
@@ -25,12 +39,39 @@ function Sudoku() {
 			if (cellSelected && !$(this).hasClass("selected")) {
 				$('#board .selected').removeClass("selected");
 				cellSelected = false;
-				$('#cell-options').hide();
+				$('#cell-options-overlay').show();
 			}
 			cellSelected = !cellSelected;
 			$(this).toggleClass("selected");
-			$('#cell-options').toggle();
+			$('#cell-options-overlay').toggle();
 		});
+		$('#number-options td').click(function() {
+			var value = parseInt($(this).html());
+			var rowAndCol = game.GetRowAndColumnOfSelected();
+			board.MarkCell(rowAndCol.row, rowAndCol.col, value);
+			game.UpdateUI();
+			if (board.IsSolved()) {
+				game.DisplayVictory();
+			}
+		});
+		$('#clear-cell-button').click(function() {
+			var rowAndCol = game.GetRowAndColumnOfSelected();
+			board.ClearCell(rowAndCol.row, rowAndCol.col);
+			game.UpdateUI();
+		});
+	};
+
+	this.GetRowAndColumnOfSelected = function() {
+		var row = parseInt($('#board .selected').parent().attr("row"));
+		var children = $('#board .selected').parent().children();
+		var col = -1;
+		for (var i in children) {
+			if ($(children[i]).hasClass("selected")) {
+				col = i;
+				break;
+			}
+		}
+		return {row: row, col: col};
 	};
 
 	this.HookUpUI();
@@ -40,7 +81,6 @@ function Sudoku() {
 function Board(size) {
 	this.boardSize = size || 9;
 	this.numFilled = 0;
-	this.hasError = false;
 	this.board = new Array(this.boardSize);
 	for (var row = 0; row < this.boardSize; row++) {
 		this.board[row] = new Array(this.boardSize);
@@ -49,23 +89,24 @@ function Board(size) {
 		}
 	}
 
-	this.SetUp = function(presetCellInfo) {
-		for (var i in presetCellInfo) {
-			this.board[presetCellInfo[i].GetRow() - 1][presetCellInfo[i].GetCol() - 1] = new Cell(presetCellInfo[i].GetVal(), true);
+	this.SetUp = function(presetCells) {
+		for (var i in presetCells) {
+			this.board[presetCells[i].GetRow() - 1][presetCells[i].GetCol() - 1] = presetCells[i];
 			this.numFilled++;
 		}
+	};
+
+	this.GetCell = function(row, col) {
+		return this.board[row][col];
 	};
 
 	this.MarkCell = function(row, col, val) {
 		var curCell = this.board[row][col];
 		if (!curCell.WasPreset()) {
-			curCell.SetVal(val);
-			this.numFilled++;
-			if (this.hasError) {
-				this.hasError = this.CheckForErrors();
-			} else {
-				this.CausedError(row, col);
+			if (!curCell.GetVal()) {
+				this.numFilled++;
 			}
+			curCell.SetVal(val);
 		}
 	};
 
@@ -74,7 +115,6 @@ function Board(size) {
 		if (curCell.GetVal() && !curCell.WasPreset()) {
 			curCell.SetVal("");
 			this.numFilled--;
-			this.hasError = this.CheckForErrors();
 		}
 	};
 
@@ -91,13 +131,13 @@ function Board(size) {
 	};
 
 	this.CausedError = function(row, col) {
-		for (var i in row) {
-			if (i !== row && this.board[i][col] === this.board[row][col]) {
+		for (var i = 0; i < this.boardSize; i++) {
+			if (i !== row && (this.board[row][col]).GetVal() && (this.board[i][col]).GetVal() === (this.board[row][col]).GetVal()) {
 				return true;
 			}
 		}
-		for (var i in col) {
-			if (i !== col && this.board[row][i] === this.board[row][col]) {
+		for (var i = 0; i < this.boardSize; i++) {
+			if (i !== col && (this.board[row][col]).GetVal() && (this.board[row][i]).GetVal() === (this.board[row][col]).GetVal()) {
 				return true;
 			}
 		}
@@ -106,7 +146,7 @@ function Board(size) {
 		var sectionSize = Math.sqrt(this.boardSize);
 		for (var i = rowStart; i < rowStart + sectionSize; i++) {
 			for (var j = colStart; j < colStart + sectionSize; j++) {
-				if ((row !== i || col !== j) && this.board[i][j] === this.board[row][col]) {
+				if ((row !== i || col !== j) && (this.board[row][col]).GetVal() && (this.board[i][j]).GetVal() === (this.board[row][col]).GetVal()) {
 					return true;
 				}
 			}
@@ -135,13 +175,23 @@ function Board(size) {
 	};
 
 	this.IsSolved = function() {
-		return !this.hasError && (this.numFilled === this.boardSize * this.boardSize);
+		return !this.CheckForErrors() && (this.numFilled === this.boardSize * this.boardSize);
 	};
 }
 
-function Cell(val, preset) {
+function Cell(row, col, val, preset) {
 	this.value = val || "";
+	this.row = row;
+	this.col = col;
 	this.preset = preset || false;
+
+	this.GetRow = function() {
+		return this.row;
+	};
+
+	this.GetCol = function() {
+		return this.col;
+	};
 
 	this.GetVal = function() {
 		return this.value;
@@ -160,57 +210,39 @@ function Cell(val, preset) {
 	};
 }
 
-function PresetCellInfo(row, col, val) {
-	this.row = row;
-	this.col = col;
-	this.val = val;
-
-	this.GetRow = function() {
-		return this.row;
-	};
-
-	this.GetCol = function() {
-		return this.col;
-	};
-
-	this.GetVal = function() {
-		return this.val;
-	};
-}
-
 function BoardGenerator() {
 	this.Generate = function() {
 		var presets = new Array();
-		presets.push(new PresetCellInfo(1,1,5));
-		presets.push(new PresetCellInfo(1,1,5));
-		presets.push(new PresetCellInfo(1,2,3));
-		presets.push(new PresetCellInfo(1,5,7));
-		presets.push(new PresetCellInfo(2,4,1));
-		presets.push(new PresetCellInfo(2,5,9));
-		presets.push(new PresetCellInfo(2,6,5));
-		presets.push(new PresetCellInfo(3,2,9));
-		presets.push(new PresetCellInfo(3,3,8));
-		presets.push(new PresetCellInfo(3,8,6));
-		presets.push(new PresetCellInfo(4,1,8));
-		presets.push(new PresetCellInfo(4,5,6));
-		presets.push(new PresetCellInfo(4,9,3));
-		presets.push(new PresetCellInfo(5,1,4));
-		presets.push(new PresetCellInfo(5,4,8));
-		presets.push(new PresetCellInfo(5,6,3));
-		presets.push(new PresetCellInfo(5,9,1));
-		presets.push(new PresetCellInfo(6,1,7));
-		presets.push(new PresetCellInfo(6,5,2));
-		presets.push(new PresetCellInfo(6,9,6));
-		presets.push(new PresetCellInfo(7,2,6));
-		presets.push(new PresetCellInfo(7,7,2));
-		presets.push(new PresetCellInfo(7,8,8));
-		presets.push(new PresetCellInfo(8,4,4));
-		presets.push(new PresetCellInfo(8,5,1));
-		presets.push(new PresetCellInfo(8,6,9));
-		presets.push(new PresetCellInfo(8,9,5));
-		presets.push(new PresetCellInfo(9,5,8));
-		presets.push(new PresetCellInfo(9,8,7));
-		presets.push(new PresetCellInfo(9,9,9));
+		presets.push(new Cell(1,1,5,true));
+		presets.push(new Cell(1,2,3,true));
+		presets.push(new Cell(1,5,7,true));
+		presets.push(new Cell(2,1,6,true));
+		presets.push(new Cell(2,4,1,true));
+		presets.push(new Cell(2,5,9,true));
+		presets.push(new Cell(2,6,5,true));
+		presets.push(new Cell(3,2,9,true));
+		presets.push(new Cell(3,3,8,true));
+		presets.push(new Cell(3,8,6,true));
+		presets.push(new Cell(4,1,8,true));
+		presets.push(new Cell(4,5,6,true));
+		presets.push(new Cell(4,9,3,true));
+		presets.push(new Cell(5,1,4,true));
+		presets.push(new Cell(5,4,8,true));
+		presets.push(new Cell(5,6,3,true));
+		presets.push(new Cell(5,9,1,true));
+		presets.push(new Cell(6,1,7,true));
+		presets.push(new Cell(6,5,2,true));
+		presets.push(new Cell(6,9,6,true));
+		presets.push(new Cell(7,2,6,true));
+		presets.push(new Cell(7,7,2,true));
+		presets.push(new Cell(7,8,8,true));
+		presets.push(new Cell(8,4,4,true));
+		presets.push(new Cell(8,5,1,true));
+		presets.push(new Cell(8,6,9,true));
+		presets.push(new Cell(8,9,5,true));
+		presets.push(new Cell(9,5,8,true));
+		presets.push(new Cell(9,8,7,true));
+		presets.push(new Cell(9,9,9,true));
 		return presets;
 	};
 }

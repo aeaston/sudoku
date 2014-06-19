@@ -17,20 +17,21 @@
 					<colgroup><col><col><col>
 					<colgroup><col><col><col>
 					<tbody>
-						<tr> <td class="stuck">5 <td class="stuck">3 <td>  <td>  <td class="stuck">7 <td>  <td>  <td>  <td>
-						<tr> <td>  <td>  <td>  <td class="stuck">1 <td class="stuck">9 <td class="stuck">5 <td>  <td>  <td>
-						<tr> <td>  <td class="stuck">9 <td class="stuck">8 <td>  <td>  <td>  <td>  <td class="stuck">6 <td>
+						<tr row="0"> <td><td><td><td><td><td><td><td><td>
+						<tr row="1"> <td><td><td><td><td><td><td><td><td>
+						<tr row="2"> <td><td><td><td><td><td><td><td><td>
 					<tbody>
-						<tr> <td class="stuck">8 <td>  <td>  <td>  <td class="stuck">6 <td>  <td>  <td>  <td class="stuck">3
-						<tr> <td class="stuck">4 <td>  <td>  <td class="stuck">8 <td>  <td class="stuck">3 <td>  <td>  <td class="stuck">1
-						<tr> <td class="stuck">7 <td>  <td>  <td>  <td class="stuck">2 <td>  <td>  <td>  <td class="stuck">6
+						<tr row="3"> <td><td><td><td><td><td><td><td><td>
+						<tr row="4"> <td><td><td><td><td><td><td><td><td>
+						<tr row="5"> <td><td><td><td><td><td><td><td><td>
 					<tbody>
-						<tr> <td>  <td class="stuck">6 <td>  <td>  <td>  <td>  <td class="stuck">2 <td class="stuck">8 <td>
-						<tr> <td>  <td>  <td>  <td class="stuck">4 <td class="stuck">1 <td class="stuck">9 <td>  <td>  <td class="stuck">5
-						<tr> <td>  <td>  <td>  <td>  <td class="stuck">8 <td>  <td>  <td class="stuck">7 <td class="stuck">9
+						<tr row="6"> <td><td><td><td><td><td><td><td><td>
+						<tr row="7"> <td><td><td><td><td><td><td><td><td>
+						<tr row="8"> <td><td><td><td><td><td><td><td><td>
 				</table>
 			</div>
 			<div id="cell-options-container">
+				<div id="cell-options-overlay"></div>
 				<div id="cell-options">
 					<div id="number-options">
 						<table>
@@ -43,7 +44,7 @@
 					<div class="button" id="clear-cell-button">Clear</div>
 				</div>
 			</div><div id="reset-button-container">
-				<div class="button" id="reset-button">Reset</div>
+				<div class="button" id="reset-button" onclick="game.ClearAll()">Reset</div>
 			</div>
 		</game>
 	</body>
